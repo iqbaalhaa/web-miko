@@ -102,18 +102,6 @@ class PHPUnit_Framework_MockObject_Builder_InvocationMocker implements PHPUnit_F
     }
 
     /**
-     * @param mixed $reference
-     *
-     * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker
-     */
-    public function willReturnReference(&$reference)
-    {
-        $stub = new PHPUnit_Framework_MockObject_Stub_ReturnReference($reference);
-
-        return $this->will($stub);
-    }
-
-    /**
      * @param array $valueMap
      *
      * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker
@@ -211,7 +199,7 @@ class PHPUnit_Framework_MockObject_Builder_InvocationMocker implements PHPUnit_F
         if ($this->matcher->methodNameMatcher === null) {
             throw new PHPUnit_Framework_MockObject_RuntimeException(
                 'Method name matcher is not defined, cannot define parameter ' .
-                'matcher without one'
+                ' matcher without one'
             );
         }
 
@@ -223,29 +211,34 @@ class PHPUnit_Framework_MockObject_Builder_InvocationMocker implements PHPUnit_F
     }
 
     /**
-     * @param  array ...$arguments
+     * @param mixed $argument, ...
      *
      * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker
      */
-    public function with(...$arguments)
+    public function with()
     {
+        $args = func_get_args();
+
         $this->canDefineParameters();
 
-        $this->matcher->parametersMatcher = new PHPUnit_Framework_MockObject_Matcher_Parameters($arguments);
+        $this->matcher->parametersMatcher = new PHPUnit_Framework_MockObject_Matcher_Parameters($args);
 
         return $this;
     }
 
     /**
-     * @param  array ...$arguments
+     * @param  mixed ...$argument
      *
      * @return PHPUnit_Framework_MockObject_Builder_InvocationMocker
      */
-    public function withConsecutive(...$arguments)
+    public function withConsecutive()
     {
+        $args = func_get_args();
+
         $this->canDefineParameters();
 
-        $this->matcher->parametersMatcher = new PHPUnit_Framework_MockObject_Matcher_ConsecutiveParameters($arguments);
+        $this->matcher->parametersMatcher =
+          new PHPUnit_Framework_MockObject_Matcher_ConsecutiveParameters($args);
 
         return $this;
     }

@@ -2,7 +2,7 @@
   <section class="content">
     <div class="box box-info">
       <div class="box-header">
-        <h4 style="text-align:center;"><b>DATA KELAHIRAN DESA</b></h4><hr>
+        <h4 style="text-align:center;"><b>DATA PELATIHAN KADER DASAR</b></h4><hr>
       </div>
 
       <div class="box-body table-responsive">

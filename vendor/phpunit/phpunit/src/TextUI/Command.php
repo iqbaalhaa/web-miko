@@ -11,6 +11,8 @@
 /**
  * A TestRunner for the Command Line Interface (CLI)
  * PHP SAPI Module.
+ *
+ * @since Class available since Release 3.0.0
  */
 class PHPUnit_TextUI_Command
 {
@@ -19,11 +21,8 @@ class PHPUnit_TextUI_Command
      */
     protected $arguments = [
         'listGroups'              => false,
-        'listSuites'              => false,
         'loader'                  => null,
-        'useDefaultConfiguration' => true,
-        'loadedExtensions'        => [],
-        'notLoadedExtensions'     => []
+        'useDefaultConfiguration' => true
     ];
 
     /**
@@ -53,12 +52,10 @@ class PHPUnit_TextUI_Command
         'enforce-time-limit'      => null,
         'exclude-group='          => null,
         'filter='                 => null,
-        'generate-configuration'  => null,
         'group='                  => null,
         'help'                    => null,
         'include-path='           => null,
         'list-groups'             => null,
-        'list-suites'             => null,
         'loader='                 => null,
         'log-json='               => null,
         'log-junit='              => null,
@@ -66,7 +63,6 @@ class PHPUnit_TextUI_Command
         'log-teamcity='           => null,
         'no-configuration'        => null,
         'no-coverage'             => null,
-        'no-extensions'           => null,
         'no-globals-backup'       => null,
         'printer='                => null,
         'process-isolation'       => null,
@@ -89,11 +85,8 @@ class PHPUnit_TextUI_Command
         'tap'                     => null,
         'teamcity'                => null,
         'testdox'                 => null,
-        'testdox-group='          => null,
-        'testdox-exclude-group='  => null,
         'testdox-html='           => null,
         'testdox-text='           => null,
-        'testdox-xml='            => null,
         'test-suffix='            => null,
         'testsuite='              => null,
         'verbose'                 => null,
@@ -158,27 +151,6 @@ class PHPUnit_TextUI_Command
             }
         }
 
-        if ($this->arguments['listSuites']) {
-            $this->printVersionString();
-
-            print "Available test suite(s):\n";
-
-            $configuration = PHPUnit_Util_Configuration::getInstance(
-                $this->arguments['configuration']
-            );
-
-            $suiteNames = $configuration->getTestSuiteNames();
-            foreach ($suiteNames as $suiteName) {
-                print " - $suiteName\n";
-            }
-
-            if ($exit) {
-                exit(PHPUnit_TextUI_TestRunner::SUCCESS_EXIT);
-            } else {
-                return PHPUnit_TextUI_TestRunner::SUCCESS_EXIT;
-            }
-        }
-
         unset($this->arguments['test']);
         unset($this->arguments['testFile']);
 
@@ -190,14 +162,10 @@ class PHPUnit_TextUI_Command
 
         $return = PHPUnit_TextUI_TestRunner::FAILURE_EXIT;
 
-        if (isset($result) && $result->wasSuccessful(false)) {
+        if (isset($result) && $result->wasSuccessful()) {
             $return = PHPUnit_TextUI_TestRunner::SUCCESS_EXIT;
         } elseif (!isset($result) || $result->errorCount() > 0) {
             $return = PHPUnit_TextUI_TestRunner::EXCEPTION_EXIT;
-        }
-
-        if ($exit) {
-            exit($return);
         }
 
         return $return;
@@ -207,6 +175,8 @@ class PHPUnit_TextUI_Command
      * Create a TestRunner, override in subclasses.
      *
      * @return PHPUnit_TextUI_TestRunner
+     *
+     * @since  Method available since Release 3.6.0
      */
     protected function createRunner()
     {
@@ -361,55 +331,6 @@ class PHPUnit_TextUI_Command
                     $this->arguments['testsuite'] = $option[1];
                     break;
 
-                case '--generate-configuration':
-                    $this->printVersionString();
-
-                    printf(
-                        "Generating phpunit.xml in %s\n\n",
-                        getcwd()
-                    );
-
-                    print 'Bootstrap script (relative to path shown above; default: vendor/autoload.php): ';
-                    $bootstrapScript = trim(fgets(STDIN));
-
-                    print 'Tests directory (relative to path shown above; default: tests): ';
-                    $testsDirectory = trim(fgets(STDIN));
-
-                    print 'Source directory (relative to path shown above; default: src): ';
-                    $src = trim(fgets(STDIN));
-
-                    if ($bootstrapScript == '') {
-                        $bootstrapScript = 'vendor/autoload.php';
-                    }
-
-                    if ($testsDirectory == '') {
-                        $testsDirectory = 'tests';
-                    }
-
-                    if ($src == '') {
-                        $src = 'src';
-                    }
-
-                    $generator = new PHPUnit_Util_ConfigurationGenerator;
-
-                    file_put_contents(
-                        'phpunit.xml',
-                        $generator->generateDefaultConfiguration(
-                            PHPUnit_Runner_Version::series(),
-                            $bootstrapScript,
-                            $testsDirectory,
-                            $src
-                        )
-                    );
-
-                    printf(
-                        "\nGenerated phpunit.xml in %s\n",
-                        getcwd()
-                    );
-
-                    exit(PHPUnit_TextUI_TestRunner::SUCCESS_EXIT);
-                    break;
-
                 case '--group':
                     $this->arguments['groups'] = explode(',', $option[1]);
                     break;
@@ -434,10 +355,6 @@ class PHPUnit_TextUI_Command
 
                 case '--list-groups':
                     $this->arguments['listGroups'] = true;
-                    break;
-
-                case '--list-suites':
-                    $this->arguments['listSuites'] = true;
                     break;
 
                 case '--printer':
@@ -520,20 +437,6 @@ class PHPUnit_TextUI_Command
                     $this->arguments['printer'] = 'PHPUnit_Util_TestDox_ResultPrinter_Text';
                     break;
 
-                case '--testdox-group':
-                    $this->arguments['testdoxGroups'] = explode(
-                        ',',
-                        $option[1]
-                    );
-                    break;
-
-                case '--testdox-exclude-group':
-                    $this->arguments['testdoxExcludeGroups'] = explode(
-                        ',',
-                        $option[1]
-                    );
-                    break;
-
                 case '--testdox-html':
                     $this->arguments['testdoxHTMLFile'] = $option[1];
                     break;
@@ -542,16 +445,8 @@ class PHPUnit_TextUI_Command
                     $this->arguments['testdoxTextFile'] = $option[1];
                     break;
 
-                case '--testdox-xml':
-                    $this->arguments['testdoxXMLFile'] = $option[1];
-                    break;
-
                 case '--no-configuration':
                     $this->arguments['useDefaultConfiguration'] = false;
-                    break;
-
-                case '--no-extensions':
-                    $this->arguments['noExtensions'] = true;
                     break;
 
                 case '--no-coverage':
@@ -640,7 +535,6 @@ class PHPUnit_TextUI_Command
                 default:
                     $optionName = str_replace('--', '', $option[0]);
 
-                    $handler = null;
                     if (isset($this->longOptions[$optionName])) {
                         $handler = $this->longOptions[$optionName];
                     } elseif (isset($this->longOptions[$optionName . '='])) {
@@ -744,10 +638,6 @@ class PHPUnit_TextUI_Command
              */
             if (isset($phpunitConfiguration['stderr']) && ! isset($this->arguments['stderr'])) {
                 $this->arguments['stderr'] = $phpunitConfiguration['stderr'];
-            }
-
-            if (isset($phpunitConfiguration['extensionsDirectory']) && !isset($this->arguments['noExtensions']) && extension_loaded('phar')) {
-                $this->handleExtensions($phpunitConfiguration['extensionsDirectory']);
             }
 
             if (isset($phpunitConfiguration['columns']) && ! isset($this->arguments['columns'])) {
@@ -861,7 +751,7 @@ class PHPUnit_TextUI_Command
      * @param string $printerClass
      * @param string $printerFile
      *
-     * @return PHPUnit_Util_Printer|string
+     * @return PHPUnit_Util_Printer
      */
     protected function handlePrinter($printerClass, $printerFile = '')
     {
@@ -917,15 +807,12 @@ class PHPUnit_TextUI_Command
         }
     }
 
+    /**
+     * @since Method available since Release 4.0.0
+     */
     protected function handleSelfUpdate($upgrade = false)
     {
         $this->printVersionString();
-
-        if ($upgrade) {
-            print "Warning: Deprecated --self-upgrade used\n\n";
-        } else {
-            print "Warning: Deprecated --self-update used\n\n";
-        }
 
         $localFilename = realpath($_SERVER['argv'][0]);
 
@@ -1005,6 +892,9 @@ class PHPUnit_TextUI_Command
         exit(PHPUnit_TextUI_TestRunner::SUCCESS_EXIT);
     }
 
+    /**
+     * @since Method available since Release 4.8.0
+     */
     protected function handleVersionCheck()
     {
         $this->printVersionString();
@@ -1048,20 +938,20 @@ Code Coverage Options:
 Logging Options:
 
   --log-junit <file>        Log test execution in JUnit XML format to file.
+  --log-tap <file>          Log test execution in TAP format to file.
   --log-teamcity <file>     Log test execution in TeamCity format to file.
+  --log-json <file>         Log test execution in JSON format.
   --testdox-html <file>     Write agile documentation in HTML format to file.
   --testdox-text <file>     Write agile documentation in Text format to file.
-  --testdox-xml <file>      Write agile documentation in XML format to file.
   --reverse-list            Print defects in reverse order
 
 Test Selection Options:
 
   --filter <pattern>        Filter which tests to run.
-  --testsuite <name>        Filter which testsuite to run.
+  --testsuite <pattern>     Filter which testsuite to run.
   --group ...               Only runs tests from the specified group(s).
   --exclude-group ...       Exclude tests from the specified group(s).
   --list-groups             List available test groups.
-  --list-suites             List available test suites.
   --test-suffix ...         Only search for test in files with specified
                             suffix(es). Default: Test.php,.phpt
 
@@ -1096,10 +986,9 @@ Test Execution Options:
 
   --loader <loader>         TestSuiteLoader implementation to use.
   --repeat <times>          Runs the test(s) repeatedly.
+  --tap                     Report test execution progress in TAP format.
   --teamcity                Report test execution progress in TeamCity format.
   --testdox                 Report test execution progress in TestDox format.
-  --testdox-group           Only include tests from the specified group(s).
-  --testdox-exclude-group   Exclude tests from the specified group(s).
   --printer <printer>       TestListener implementation to use.
 
 Configuration Options:
@@ -1108,10 +997,8 @@ Configuration Options:
   -c|--configuration <file> Read configuration from XML file.
   --no-configuration        Ignore default configuration file (phpunit.xml).
   --no-coverage             Ignore code coverage configuration.
-  --no-extensions           Do not load PHPUnit extensions.
   --include-path <path(s)>  Prepend PHP's include_path with given path(s).
   -d key[=value]            Sets a php.ini value.
-  --generate-configuration  Generate configuration file with suggested settings.
 
 Miscellaneous Options:
 
@@ -1123,6 +1010,8 @@ EOT;
 
         if (defined('__PHPUNIT_PHAR__')) {
             print "\n  --check-version           Check whether PHPUnit is the latest version.";
+            print "\n  --self-update             Update PHPUnit to the latest version within the same\n                            release series.\n";
+            print "\n  --self-upgrade            Upgrade PHPUnit to the latest version.\n";
         }
     }
 
@@ -1145,7 +1034,6 @@ EOT;
     }
 
     /**
-     * @param string $message
      */
     private function showError($message)
     {
@@ -1154,19 +1042,5 @@ EOT;
         print $message . "\n";
 
         exit(PHPUnit_TextUI_TestRunner::FAILURE_EXIT);
-    }
-
-    /**
-     * @param string $directory
-     */
-    private function handleExtensions($directory)
-    {
-        $facade = new File_Iterator_Facade;
-
-        foreach ($facade->getFilesAsArray($directory, '.phar') as $file) {
-            require $file;
-
-            $this->arguments['loadedExtensions'][] = $file;
-        }
     }
 }

@@ -31,8 +31,8 @@ if ($this->session->flashdata('sukses')) {
         <div class="form-group">
           <label>Jabatan</label>
 		  <select name="jabatan" class="form-control">
-			<option value="Kepala Desa" <?php if($pengaturan->jabatan_pejabat == "Kepala Desa"){ echo "selected"; } ?>>Kepala Desa</option>
-			<option value="Sekertaris Desa" <?php if($pengaturan->jabatan_pejabat == "Sekertaris Desa"){ echo "selected"; } ?>>Sekertaris Desa</option>
+			<option value="Kepala Desa" <?php if($pengaturan->jabatan_pejabat == "Kepala Desa"){ echo "selected"; } ?>>Ketua PKC</option>
+			<option value="Sekertaris Desa" <?php if($pengaturan->jabatan_pejabat == "Sekertaris Desa"){ echo "selected"; } ?>>Ketua PC</option>
 			<option value="Kaur Pemerintahan" <?php if($pengaturan->jabatan_pejabat == "Kaur Pemerintahan"){ echo "selected"; } ?>>Kaur Pemerintahan</option>
 		  </select>
         </div>

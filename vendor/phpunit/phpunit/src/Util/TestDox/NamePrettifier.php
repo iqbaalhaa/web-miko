@@ -10,6 +10,8 @@
 
 /**
  * Prettifies class and method names for use in TestDox documentation.
+ *
+ * @since Class available since Release 2.1.0
  */
 class PHPUnit_Util_TestDox_NamePrettifier
 {
@@ -79,25 +81,23 @@ class PHPUnit_Util_TestDox_NamePrettifier
             $this->strings[] = $string;
         }
 
-        if (substr($name, 0, 4) == 'test') {
-            $name = substr($name, 4);
-        }
-
-        if (strlen($name) == 0) {
-            return $buffer;
-        }
-
-        $name[0] = strtoupper($name[0]);
-
         if (strpos($name, '_') !== false) {
-            return trim(str_replace('_', ' ', $name));
+            return str_replace('_', ' ', $name);
         }
 
-        $max        = strlen($name);
+        $max = strlen($name);
+
+        if (substr($name, 0, 4) == 'test') {
+            $offset = 4;
+        } else {
+            $offset  = 0;
+            $name[0] = strtoupper($name[0]);
+        }
+
         $wasNumeric = false;
 
-        for ($i = 0; $i < $max; $i++) {
-            if ($i > 0 &&
+        for ($i = $offset; $i < $max; $i++) {
+            if ($i > $offset &&
                 ord($name[$i]) >= 65 &&
                 ord($name[$i]) <= 90) {
                 $buffer .= ' ' . strtolower($name[$i]);

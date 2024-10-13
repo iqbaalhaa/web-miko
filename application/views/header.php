@@ -15,6 +15,65 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/skins/_all-skins.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/datepicker/css/bootstrap-datepicker.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/style.css">
+        <!-- CSS kustom untuk navigasi biru-kuning -->
+        <style>
+                :root {
+                        --primary-blue: #1565C0;
+                        --secondary-blue: #1976D2;
+                        --primary-yellow: #FFC107;
+                        --secondary-yellow: #FFD54F;
+                        --text-color-dark: #212121;
+                        --text-color-light: #FFFFFF;
+                }
+
+                .skin-blue .main-header .navbar,
+                .skin-blue .main-header .logo {
+                        background-color: var(--primary-blue) !important;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                }
+
+                .skin-blue .main-header .navbar .nav > li > a,
+                .skin-blue .main-header .logo {
+                        color: var(--text-color-light) !important;
+                        font-weight: 500;
+                }
+
+                .skin-blue .main-sidebar {
+                        background-color: var(--secondary-blue) !important;
+                        box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+                }
+
+                .skin-blue .sidebar-menu > li > a {
+                        color: var(--text-color-light) !important;
+                        border-left: 3px solid transparent;
+                        transition: all 0.3s ease;
+                }
+
+                .skin-blue .sidebar-menu > li:hover > a,
+                .skin-blue .sidebar-menu > li.active > a {
+                        background-color: var(--primary-yellow) !important;
+                        color: var(--text-color-dark) !important;
+                        border-left-color: var(--secondary-yellow);
+                }
+
+                .skin-blue .main-header .navbar .sidebar-toggle:hover {
+                        background-color: var(--secondary-yellow) !important;
+                        color: var(--text-color-dark) !important;
+                }
+
+                .skin-blue .sidebar-menu > li > a > i {
+                        margin-right: 10px;
+                        color: var(--primary-yellow);
+                }
+
+                .skin-blue .sidebar-menu > li > a {
+                        padding: 12px 15px;
+                }
+
+                .skin-blue .main-header .logo:hover {
+                        background-color: var(--secondary-blue) !important;
+                }
+        </style>
         <!-- JavaScript -->
         <script src="<?php echo base_url(); ?>assets/jquery/jquery.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.js"></script>
@@ -32,7 +91,7 @@
                         <a href="<?php echo base_url('beranda'); ?>" class="logo">
                                 <span class="logo-mini"><b>S</b></span>
                                 <span class="logo-lg"><img src="<?php echo base_url('assets/images/logopmii.png'); ?>" width="25"
-                                                alt="SIMPENDUK"><b> PMII</b></span>
+                                                alt="SIMPENDUK"><b> PMII JAMBI</b></span>
                         </a>
                         <nav class="navbar navbar-static-top">
                                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -45,7 +104,7 @@
                                         <ul class="nav navbar-nav">
                                                 <li>
                                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                                Selamat datang <?php echo $this->session->userdata('nama_petugas'); ?>
+                                                                Selamat Datang <?php echo $this->session->userdata('nama_petugas'); ?>
                                                         </a>
 
                                                 </li>
@@ -125,64 +184,13 @@
                                                 //jika admin
                                                 if ($this->session->userdata('level') == 'admin') {
                                                 ?>
-                                                        <li class="treeview">
-                                                                <a href="">
-                                                                        <i class="fa fa-envelope-o"></i>
-                                                                        <span>Layanan Surat</span>
-                                                                        <span class="pull-right-container">
-                                                                                <i class="fa fa-angle-left pull-right"></i>
-                                                                        </span>
-                                                                </a>
-                                                                <ul class="treeview-menu">
-                                                                        <li><a href="<?php echo base_url('surat/surat_kelahiran'); ?>"><i
-                                                                                                class="fa fa-envelope-o"></i> <span>Surat Kelahiran</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/surat_kematian'); ?>"><i
-                                                                                                class="fa fa-envelope-o"></i> <span>Surat Kematian</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/domisili'); ?>"><i class="fa fa-envelope-o"></i>
-                                                                                        <span>SK Domisili</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/sktm_kesehatan'); ?>"><i
-                                                                                                class="fa fa-envelope-o"></i> <span>SKTM Kesehatan</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/sktm_pendidikan'); ?>"><i
-                                                                                                class="fa fa-envelope-o"></i> <span>SKTM Pendidikan</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/izin_keluarga'); ?>"><i
-                                                                                                class="fa fa-envelope-o"></i> <span>Surat Izin Keluarga</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/skck'); ?>"><i class="fa fa-envelope-o"></i>
-                                                                                        <span>SKCK</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/menikah'); ?>"><i class="fa fa-envelope-o"></i>
-                                                                                        <span>SK Menikah</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/belum_menikah'); ?>"><i
-                                                                                                class="fa fa-envelope-o"></i> <span>SK Belum Menikah</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/belum_sekolah'); ?>"><i
-                                                                                                class="fa fa-envelope-o"></i> <span>SK Belum Sekolah</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/usaha'); ?>"><i class="fa fa-envelope-o"></i>
-                                                                                        <span>SK Usaha</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/cerai_mati'); ?>"><i class="fa fa-envelope-o"></i>
-                                                                                        <span>SK Cerai Mati</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/pindah'); ?>"><i class="fa fa-envelope-o"></i>
-                                                                                        <span>Surat Pindah</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/batal_pindah'); ?>"><i class="fa fa-envelope-o"></i>
-                                                                                        <span>SK Batal Pindah</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/penghasilan'); ?>"><i class="fa fa-envelope-o"></i>
-                                                                                        <span>SK Penghasilan</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/haji'); ?>"><i class="fa fa-envelope-o"></i>
-                                                                                        <span>SK Berangkat Haji</span></a></li>
-                                                                        <li><a href="<?php echo base_url('surat/pemakaman'); ?>"><i class="fa fa-envelope-o"></i>
-                                                                                        <span>Surat Pemakaman</span></a></li>
-                                                        </li>
-                                </ul>
-                                </li>
-                        <?php
+                                                        <li><a href="<?php echo base_url('pengaturan/'); ?>"><i class="fa fa-gear"></i>
+                                                                <span>Pengaturan</span></a></li>
+                                                <?php
                                                 }
-                                                //jika admin atau sekertaris
-                                                if ($this->session->userdata('level') == 'admin') {
-                        ?>
-                                <li><a href="<?php echo base_url('pengaturan/'); ?>"><i class="fa fa-gear"></i>
-                                                <span>Pengaturan</span></a></li>
-                        <?php
-                                                }
-                        ?>
-                        <li><a href="<?php echo base_url('logout'); ?>"><i class="fa fa-power-off"></i> <span>Logout</span></a>
-                        </li>
+                                                ?>
+                                                <li><a href="<?php echo base_url('logout'); ?>"><i class="fa fa-power-off"></i> <span>Logout</span></a>
+                                                </li>
                         </ul>
                         </section>
                 </aside>

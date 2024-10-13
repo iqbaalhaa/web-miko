@@ -2,7 +2,7 @@
   <section class="content">
     <div class="box box-info">
       <div class="box-header">
-        <h4 style="text-align:center;"><b>DATA KELAHIRAN DESA</b></h4><hr>
+        <h4 style="text-align:center;"><b>DATA PELATIHAN KADER DASAR</b></h4><hr>
       </div>
 
       <div class="box-body table-responsive">
@@ -20,7 +20,7 @@ if ($this->session->flashdata('sukses')) {
 ?>
 
       <p>
-        <a href="<?php echo base_url('kelahiran/tambah'); ?>" class="btn btn-success">Tambah Data Kelahiran</a>
+        <a href="<?php echo base_url('kelahiran/tambah'); ?>" class="btn btn-success">Tambah Data PKD</a>
       </p>
       <table id="data" class="table table-bordered" width="100%" cellspacing="0" >
         <thead>

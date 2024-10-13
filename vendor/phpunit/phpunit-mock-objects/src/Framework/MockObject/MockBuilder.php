@@ -11,7 +11,7 @@
 /**
  * Implementation of the Builder pattern for Mock objects.
  *
- * @since File available since Release 1.0.0
+ * @since      File available since Release 1.0.0
  */
 class PHPUnit_Framework_MockObject_MockBuilder
 {
@@ -29,11 +29,6 @@ class PHPUnit_Framework_MockObject_MockBuilder
      * @var array
      */
     private $methods = [];
-
-    /**
-     * @var array
-     */
-    private $methodsExcept = [];
 
     /**
      * @var string
@@ -76,24 +71,13 @@ class PHPUnit_Framework_MockObject_MockBuilder
     private $proxyTarget = null;
 
     /**
-     * @var bool
-     */
-    private $allowMockingUnknownTypes = true;
-
-    /**
-     * @var PHPUnit_Framework_MockObject_Generator
-     */
-    private $generator;
-
-    /**
      * @param PHPUnit_Framework_TestCase $testCase
      * @param array|string               $type
      */
     public function __construct(PHPUnit_Framework_TestCase $testCase, $type)
     {
-        $this->testCase  = $testCase;
-        $this->type      = $type;
-        $this->generator = new PHPUnit_Framework_MockObject_Generator;
+        $this->testCase = $testCase;
+        $this->type     = $type;
     }
 
     /**
@@ -103,7 +87,7 @@ class PHPUnit_Framework_MockObject_MockBuilder
      */
     public function getMock()
     {
-        $object = $this->generator->getMock(
+        return $this->testCase->getMock(
             $this->type,
             $this->methods,
             $this->constructorArgs,
@@ -113,13 +97,8 @@ class PHPUnit_Framework_MockObject_MockBuilder
             $this->autoload,
             $this->cloneArguments,
             $this->callOriginalMethods,
-            $this->proxyTarget,
-            $this->allowMockingUnknownTypes
+            $this->proxyTarget
         );
-
-        $this->testCase->registerMockObject($object);
-
-        return $object;
     }
 
     /**
@@ -129,7 +108,7 @@ class PHPUnit_Framework_MockObject_MockBuilder
      */
     public function getMockForAbstractClass()
     {
-        $object = $this->generator->getMockForAbstractClass(
+        return $this->testCase->getMockForAbstractClass(
             $this->type,
             $this->constructorArgs,
             $this->mockClassName,
@@ -139,10 +118,6 @@ class PHPUnit_Framework_MockObject_MockBuilder
             $this->methods,
             $this->cloneArguments
         );
-
-        $this->testCase->registerMockObject($object);
-
-        return $object;
     }
 
     /**
@@ -152,7 +127,7 @@ class PHPUnit_Framework_MockObject_MockBuilder
      */
     public function getMockForTrait()
     {
-        $object = $this->generator->getMockForTrait(
+        return $this->testCase->getMockForTrait(
             $this->type,
             $this->constructorArgs,
             $this->mockClassName,
@@ -162,10 +137,6 @@ class PHPUnit_Framework_MockObject_MockBuilder
             $this->methods,
             $this->cloneArguments
         );
-
-        $this->testCase->registerMockObject($object);
-
-        return $object;
     }
 
     /**
@@ -175,30 +146,9 @@ class PHPUnit_Framework_MockObject_MockBuilder
      *
      * @return PHPUnit_Framework_MockObject_MockBuilder
      */
-    public function setMethods(array $methods = null)
+    public function setMethods($methods)
     {
         $this->methods = $methods;
-
-        return $this;
-    }
-
-    /**
-     * Specifies the subset of methods to not mock. Default is to mock all of them.
-     *
-     * @param array $methods
-     *
-     * @return PHPUnit_Framework_MockObject_MockBuilder
-     */
-    public function setMethodsExcept(array $methods = [])
-    {
-        $this->methodsExcept = $methods;
-
-        $this->setMethods(
-            array_diff(
-                $this->generator->getClassMethods($this->type),
-                $this->methodsExcept
-            )
-        );
 
         return $this;
     }
@@ -378,30 +328,6 @@ class PHPUnit_Framework_MockObject_MockBuilder
     public function setProxyTarget($object)
     {
         $this->proxyTarget = $object;
-
-        return $this;
-    }
-
-    /**
-     * @return PHPUnit_Framework_MockObject_MockBuilder
-     *
-     * @since  Method available since Release 3.2.0
-     */
-    public function allowMockingUnknownTypes()
-    {
-        $this->allowMockingUnknownTypes = true;
-
-        return $this;
-    }
-
-    /**
-     * @return PHPUnit_Framework_MockObject_MockBuilder
-     *
-     * @since  Method available since Release 3.2.0
-     */
-    public function disallowMockingUnknownTypes()
-    {
-        $this->allowMockingUnknownTypes = false;
 
         return $this;
     }

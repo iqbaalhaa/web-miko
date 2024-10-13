@@ -14,7 +14,7 @@ class Kelahiran extends CI_Controller
 
 	public function tampil()
 	{
-		$data['title'] = "Data kelahiran - Desa Warung Bambu";
+		$data['title'] = "Data PKD";
 		$data['kelahiran'] = $this->m_kelahiran->tampil();
 
 		$this->load->view('header', $data);
@@ -23,7 +23,7 @@ class Kelahiran extends CI_Controller
 	}
 	public function tampil_kelahiran()
 	{
-		$data['title'] = "Data kelahiran - Desa Warung Bambu";
+		$data['title'] = "Data PKD";
 		$data['kelahiran'] = $this->m_kelahiran->tampil();
 
 		$this->load->view('header', $data);
@@ -33,7 +33,7 @@ class Kelahiran extends CI_Controller
 
 	public function tambah()
 	{
-		$data['title'] = "Tambah kelahiran - Desa Warung Bambu";
+		$data['title'] = "Tambah Data PKD";
 
 		$this->load->view('header', $data);
 		$this->load->view('kelahiran/tambah_kelahiran');

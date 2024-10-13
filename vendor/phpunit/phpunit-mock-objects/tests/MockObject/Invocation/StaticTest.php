@@ -1,16 +1,14 @@
 <?php
+
 class Framework_MockObject_Invocation_StaticTest extends PHPUnit_Framework_TestCase
 {
     public function testConstructorRequiresClassAndMethodAndParameters()
     {
-        $this->assertInstanceOf(
-            PHPUnit_Framework_MockObject_Invocation_Static::class,
-            new PHPUnit_Framework_MockObject_Invocation_Static(
-                'FooClass',
-                'FooMethod',
-                ['an_argument'],
-                'ReturnType'
-            )
+        new PHPUnit_Framework_MockObject_Invocation_Static(
+            'FooClass',
+            'FooMethod',
+            ['an_argument'],
+            'ReturnType'
         );
     }
 
@@ -41,7 +39,7 @@ class Framework_MockObject_Invocation_StaticTest extends PHPUnit_Framework_TestC
     public function testAllowToGetMethodParametersSetInConstructor()
     {
         $expectedParameters = [
-          'foo', 5, ['a', 'b'], new stdClass, null, false
+          'foo', 5, ['a', 'b'], new StdClass, null, false
         ];
 
         $invocation = new PHPUnit_Framework_MockObject_Invocation_Static(
@@ -56,7 +54,7 @@ class Framework_MockObject_Invocation_StaticTest extends PHPUnit_Framework_TestC
 
     public function testConstructorAllowToSetFlagCloneObjectsInParameters()
     {
-        $parameters   = [new stdClass];
+        $parameters   = [new StdClass];
         $cloneObjects = true;
 
         $invocation = new PHPUnit_Framework_MockObject_Invocation_Static(
