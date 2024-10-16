@@ -4,7 +4,7 @@
             <div class="box-header">
 
 
-                <h4 style="text-align:center"><b>DATA PINDAH DESA</b></h4>
+                <h4 style="text-align:center"><b>DATA PELATIHAN KADER NASIONAL</b></h4>
                 <hr>
             </div>
 
@@ -23,7 +23,7 @@
                 ?>
 
                 <p>
-                    <a href="<?php echo base_url('pindah/tambah'); ?>" class="btn btn-success">Tambah Data Pindah</a>
+                    <a href="<?php echo base_url('pindah/tambah'); ?>" class="btn btn-success">Tambah Data PKN</a>
                     <a href="<?php echo base_url('#'); ?>" target="_blank">
                     </a>
                 </p>

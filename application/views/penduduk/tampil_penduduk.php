@@ -34,11 +34,11 @@
                     <thead>
                         <tr class="active">
                             <th style="text-align:center">No</th>
-                            <th style="text-align:center">NIK</th>
+                            <th style="text-align:center">NIM</th>
                             <th style="text-align:center">Nama</th>
                             <th style="text-align:center">Tanggal Lahir</th>
                             <th style="text-align:center">Jenis Kelamin</th>
-                            <th style="text-align:center">Pendidikan</th>
+                            <th style="text-align:center">Universitas</th>
                             <th style="text-align:center">Status Tinggal</th>
                             <th style="text-align:center">Aksi</th>
                         </tr>

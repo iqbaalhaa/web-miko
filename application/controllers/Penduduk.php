@@ -13,7 +13,7 @@ class Penduduk extends CI_Controller {
 	}
 
 	public function tampil() {
-		$data['title'] = "Data Penduduk - Desa Warung Bambu";
+		$data['title'] = "Data Mabapa Provinsi Jambi";
 		$data['penduduk'] = $this->m_penduduk->tampil();
 
 		$mutasi = $this->load->view('header', $data);
@@ -22,7 +22,7 @@ class Penduduk extends CI_Controller {
 	}
 
 	public function tampil_penduduk() {
-		$data['title'] = "Data Penduduk - Desa Warung Bambu";
+		$data['title'] = "Data Mabapa Provinsi Jambi";
 		$data['penduduk'] = $this->m_penduduk->tampil();
 
 		$mutasi = $this->load->view('header', $data);
