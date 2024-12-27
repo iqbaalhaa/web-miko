@@ -21,20 +21,33 @@
                 <?php
                 }
                 ?>
-
-                <p>
                     <a href="<?php echo base_url('pindah/tambah'); ?>" class="btn btn-success">Tambah Data PKN</a>
                     <a href="<?php echo base_url('#'); ?>" target="_blank">
                     </a>
-                </p>
+                    <div style="display: inline-block; margin-left: 10px;">
+                        <label>Pilih Cabang</label>
+                        <select class="form-control" style="width: 200px;">
+                            <option value="kota_jambi">Kota Jambi</option>
+                            <option value="merangin">Merangin</option>
+                            <option value="kerinci">Kerinci</option>
+                            <option value="bungo">Bungo</option>
+                            <option value="tebo">Tebo</option>
+                            <option value="sarolangun">Sarolangun</option>
+                            <option value="batanghari">Batang Hari</option>
+                            <option value="tanjungjabungbarat">Tanjung Jabung Barat</option>
+                            <option value="tanjungjabungtimur">Tanjung Jabung Timur</option>
+                        </select>
+                    </div>
                 <table id="data" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr class="active">
                             <th style="text-align:center">No</th>
-                            <th style="text-align:center">Nomor Induk Kependudukan</th>
-                            <th style="text-align:center">Nama Lengkap</th>
-                            <th style="text-align:center">Alamat</th>
-                            <th style="text-align:center">Alamat Tujuan</th>
+                            <th style="text-align:center">NIK</th>
+                            <th style="text-align:center">Nama</th>
+                            <th style="text-align:center">Tanggal Lahir</th>
+                            <th style="text-align:center">Alamat Tinggal</th>
+                            <th style="text-align:center">Universitas</th>
+                            <th style="text-align:center">Tahun PKN</th>
                             <th style="text-align:center">Aksi</th>
                         </tr>
                         </tr>
@@ -50,6 +63,8 @@
                             <td><?php echo $pindah->nama; ?></td>
                             <td><?php echo $pindah->alamat; ?></td>
                             <td><?php echo $pindah->alamat_tujuan; ?></td>
+                            <td><?php echo $pindah->nik; ?></td>
+                            <td><?php echo $pindah->nama; ?></td>
                             <td style="text-align:center">
                                 <a href="<?php echo base_url('pindah/edit/' . $pindah->nik); ?>"
                                     class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Edit</a>

@@ -22,26 +22,37 @@
                 }
                 ?>
 
-                <p>
                     <a href="<?php echo base_url('penduduk/tambah'); ?>" class="btn btn-success">Tambah Data
                         Mapaba</a>
 
+                    <div style="display: inline-block; margin-left: 10px;">
+                        <label>Pilih Cabang</label>
+                        <select class="form-control" style="width: 200px;">
+                            <option value="kota_jambi">Kota Jambi</option>
+                            <option value="merangin">Merangin</option>
+                            <option value="kerinci">Kerinci</option>
+                            <option value="bungo">Bungo</option>
+                            <option value="tebo">Tebo</option>
+                            <option value="sarolangun">Sarolangun</option>
+                            <option value="batanghari">Batang Hari</option>
+                            <option value="tanjungjabungbarat">Tanjung Jabung Barat</option>
+                            <option value="tanjungjabungtimur">Tanjung Jabung Timur</option>
+                        </select>
+                    </div>
 
-                    <a href="<?php echo base_url('#'); ?>" target="_blank">
-                    </a>
-                </p>
+                    <br>
+                <br>
                 <table id="data" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr class="active">
                             <th style="text-align:center">No</th>
-                            <th style="text-align:center">NIM</th>
+                            <th style="text-align:center">NIK</th>
                             <th style="text-align:center">Nama</th>
                             <th style="text-align:center">Tanggal Lahir</th>
-                            <th style="text-align:center">Jenis Kelamin</th>
+                            <th style="text-align:center">Alamat Tinggal</th>
                             <th style="text-align:center">Universitas</th>
-                            <th style="text-align:center">Status Tinggal</th>
+                            <th style="text-align:center">Tahun Mapaba</th>
                             <th style="text-align:center">Aksi</th>
-                        </tr>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,7 +67,7 @@
                                 <td><?= date('d F Y', strtotime($penduduk->tanggal_lahir)); ?></td>
                                 <td><?php echo $penduduk->jenis_kelamin; ?></td>
                                 <td><?php echo $penduduk->pendidikan; ?></td>
-                                <td><?php echo $penduduk->status; ?></td>
+                                <td><?php echo $penduduk->pendidikan; ?></td>
                                 <td style="text-align:center">
                                     <a href="<?php echo base_url('penduduk/edit/' . $penduduk->nik); ?>"
                                         class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Edit</a>

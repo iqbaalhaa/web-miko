@@ -18,20 +18,31 @@ if ($this->session->flashdata('sukses')) {
         <?php
 }
 ?>
-
-      <p>
         <a href="<?php echo base_url('kelahiran/tambah'); ?>" class="btn btn-success">Tambah Data PKD</a>
-      </p>
+        <div style="display: inline-block; margin-left: 10px;">
+                        <label>Pilih Cabang</label>
+                        <select class="form-control" style="width: 200px;">
+                            <option value="kota_jambi">Kota Jambi</option>
+                            <option value="merangin">Merangin</option>
+                            <option value="kerinci">Kerinci</option>
+                            <option value="bungo">Bungo</option>
+                            <option value="tebo">Tebo</option>
+                            <option value="sarolangun">Sarolangun</option>
+                            <option value="batanghari">Batang Hari</option>
+                            <option value="tanjungjabungbarat">Tanjung Jabung Barat</option>
+                            <option value="tanjungjabungtimur">Tanjung Jabung Timur</option>
+                        </select>
+                    </div>
       <table id="data" class="table table-bordered" width="100%" cellspacing="0" >
         <thead>
           <tr class="active">
             <th style="text-align:center">No</th>
+            <th style="text-align:center">NIK</th>
             <th style="text-align:center">Nama</th>
             <th style="text-align:center">Tanggal Lahir</th>
-            <th style="text-align:center">Jenis Kelamin</th>
-            <th style="text-align:center">Alamat</th>
-            <th style="text-align:center">Nama Ayah</th>
-            <th style="text-align:center">Nama Ibu</th>
+            <th style="text-align:center">Alamat Tinggal</th>
+            <th style="text-align:center">Universitas</th>
+            <th style="text-align:center">Tahun PKD</th>
             <th style="text-align:center">Aksi</th>
           </tr>
         </tr>
